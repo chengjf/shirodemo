@@ -7,6 +7,7 @@ import com.chengjf.shiro.demo.shiro.service.SysUserService;
 import org.apache.shiro.authc.*;
 import org.apache.shiro.authz.AuthorizationInfo;
 import org.apache.shiro.authz.SimpleAuthorizationInfo;
+import org.apache.shiro.crypto.hash.Sha256Hash;
 import org.apache.shiro.realm.AuthorizingRealm;
 import org.apache.shiro.subject.PrincipalCollection;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -60,9 +61,10 @@ public class UserRealm extends AuthorizingRealm {
         if (user == null) {
             throw new UnknownAccountException("账号或密码不正确");
         }
+        String hashedPassword = new Sha256Hash(password).toHex();
 
         //密码错误
-        if (!password.equals(user.getPassword())) {
+        if (!hashedPassword.equals(user.getPassword())) {
             throw new IncorrectCredentialsException("账号或密码不正确");
         }
 
@@ -70,6 +72,8 @@ public class UserRealm extends AuthorizingRealm {
         if (user.getStatus() == 0) {
             throw new LockedAccountException("账号已被锁定,请联系管理员");
         }
+
+
 
         SimpleAuthenticationInfo info = new SimpleAuthenticationInfo(user, password, getName());
         return info;

@@ -40,6 +40,12 @@
             <h4><a th:href="@{/troopers}" class="btn btn-primary">troopers</a>&nbsp;(Requires 'troopers:read' permission.)</h4>
 
         </div>
+
+        <ol th:each="perm : ${perms}">
+            <li th:text="${perm}"></li>
+            <li th:text="${perm}"></li>
+            <li th:text="${perm}"></li>
+        </ol>
         <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
         <script src="https://netdna.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
     </body>

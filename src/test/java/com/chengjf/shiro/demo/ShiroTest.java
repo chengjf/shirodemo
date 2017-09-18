@@ -29,7 +29,7 @@ public class ShiroTest {
     @Test
     public void test() {
 //        AuthenticationToken token = new StatelessToken();
-        AuthenticationToken token = new UsernamePasswordToken("x", "x");
+        AuthenticationToken token = new UsernamePasswordToken("admin", "admin");
         AuthenticationInfo authenticate = securityManager.authenticate(token);
         Object credentials = authenticate.getCredentials();
         System.out.println(credentials);

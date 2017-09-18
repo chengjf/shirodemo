@@ -52,6 +52,7 @@ public class SysUserServiceImpl implements SysUserService {
         SysUserEntityExample.Criteria criteria = example.createCriteria();
         criteria.andUsernameEqualTo(username);
         List<SysUserEntity> sysUserEntities = sysUserEntityMapper.selectByExample(example);
+
         if(sysUserEntities!=null && sysUserEntities.size()==1){
             return sysUserEntities.get(0);
         }else {

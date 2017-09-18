@@ -28,8 +28,8 @@ public class LoginTest {
         headers.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
 
         MultiValueMap<String, String> map= new LinkedMultiValueMap<String, String>();
-        map.add("username", "chengjf");
-        map.add("password", "chengjf");
+        map.add("username", "admin");
+        map.add("password", "admin");
 
         HttpEntity<MultiValueMap<String, String>> request = new HttpEntity<MultiValueMap<String, String>>(map, headers);
         ResponseEntity<String> stringResponseEntity = testRestTemplate.postForEntity("/login", request, String.class);

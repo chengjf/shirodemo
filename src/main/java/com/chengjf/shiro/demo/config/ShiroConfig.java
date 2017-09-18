@@ -1,5 +1,7 @@
 package com.chengjf.shiro.demo.config;
 
+import com.chengjf.shiro.demo.common.dao.DefaultStormtrooperDao;
+import com.chengjf.shiro.demo.common.dao.StormtrooperDao;
 import com.chengjf.shiro.demo.shiro.realm.UserRealm;
 import org.apache.shiro.authc.credential.HashedCredentialsMatcher;
 import org.apache.shiro.codec.Base64;
@@ -44,10 +46,10 @@ public class ShiroConfig {
     private static Logger log = LoggerFactory.getLogger(ShiroConfig.class);
 
 
-//    @Bean
-//    protected StormtrooperDao stormtrooperDao() {
-//        return new DefaultStormtrooperDao();
-//    }
+    @Bean
+    protected StormtrooperDao stormtrooperDao() {
+        return new DefaultStormtrooperDao();
+    }
 
     @Bean("realm")
     public UserRealm userRealm() {

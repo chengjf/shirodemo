@@ -14,13 +14,20 @@ import org.springframework.http.HttpStatus;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.web.servlet.NoHandlerFoundException;
+import org.springframework.web.servlet.config.annotation.EnableWebMvc;
+import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurationSupport;
+
+import javax.jws.WebParam;
 
 /**
  * Created by jeff on 2017/9/17.
  */
 
+@EnableWebMvc
 @Configuration
 @EnableAutoConfiguration
 @SpringBootConfiguration
@@ -29,35 +36,13 @@ public class WebMvcConfig extends WebMvcConfigurationSupport {
 
     private static Logger log = LoggerFactory.getLogger(WebMvcConfig.class);
 
-    @ExceptionHandler(UnauthenticatedException.class)
-    @ResponseStatus(HttpStatus.UNAUTHORIZED)
-    public String handleException(UnauthenticatedException e, Model model) {
-        log.debug("{} was thrown", e.getClass(), e);
-
-        model.addAttribute("errors", new ErrorMessage(HttpStatus.UNAUTHORIZED.toString(), "UNAUTHORIZED"));
-        return "error";
+    @Override
+    public void addResourceHandlers(ResourceHandlerRegistry registry) {
+        registry.addResourceHandler("/static/**").addResourceLocations("classpath:/static/");
     }
 
-    @ExceptionHandler(AuthorizationException.class)
-    @ResponseStatus(HttpStatus.FORBIDDEN)
-    public String handleException(AuthorizationException e, Model model) {
-        log.debug("{} was thrown", e.getClass(), e);
-        model.addAttribute("errors", new ErrorMessage(HttpStatus.FORBIDDEN.toString(), "FORBIDDEN"));
-        return "error";
-    }
 
-    @ExceptionHandler(NotFoundException.class)
-    @ResponseStatus(HttpStatus.NOT_FOUND)
-    public String handleException(NotFoundException e, Model model) {
-        String id = e.getMessage();
 
-        model.addAttribute("errors", new ErrorMessage(HttpStatus.NOT_FOUND.toString(), "Trooper Not Found: " + id + ", why aren't you at your post? " + id + ", do you copy?"));
-        return "error";
-    }
 
-    @ExceptionHandler(Exception.class)
-    public String handleException(Exception e, Model model) {
-        model.addAttribute("errors", new ErrorMessage("500", e.getMessage()));
-        return "error";
-    }
+
 }
