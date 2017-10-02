@@ -29,8 +29,6 @@ import javax.jws.WebParam;
 
 @EnableWebMvc
 @Configuration
-@EnableAutoConfiguration
-@SpringBootConfiguration
 @ControllerAdvice
 public class WebMvcConfig extends WebMvcConfigurationSupport {
 

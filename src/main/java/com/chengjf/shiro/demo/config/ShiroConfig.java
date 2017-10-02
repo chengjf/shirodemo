@@ -38,9 +38,6 @@ import java.util.Map;
 
 
 @Configuration
-@EnableAutoConfiguration
-@SpringBootConfiguration
-@ControllerAdvice
 public class ShiroConfig {
 
     private static Logger log = LoggerFactory.getLogger(ShiroConfig.class);
@@ -114,7 +111,7 @@ public class ShiroConfig {
     public ShiroFilterFactoryBean shirFilter(SecurityManager securityManager) {
         ShiroFilterFactoryBean shiroFilter = new ShiroFilterFactoryBean();
         shiroFilter.setSecurityManager(securityManager);
-        shiroFilter.setLoginUrl("/login.html");
+        shiroFilter.setLoginUrl("/login");
         shiroFilter.setSuccessUrl("/");
         shiroFilter.setUnauthorizedUrl("/403.html");
 
@@ -125,7 +122,7 @@ public class ShiroConfig {
 
 
 //        filterChainDefinitionMap.put("/login.html", "anon");
-        filterChainDefinitionMap.put("/sys/login", "anon");
+        filterChainDefinitionMap.put("/login", "anon");
         filterChainDefinitionMap.put("/captcha.jpg", "anon");
         filterChainDefinitionMap.put("/favicon.ico","anon");
         filterChainDefinitionMap.put("/error","anon");
